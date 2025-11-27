@@ -1,50 +1,63 @@
+ [
 {
-    "panelTitle": "Farmer Details",
-    "panelType": "3-panel",
-    "schema": {
+  "component_name": "OnePanelComponent",
+  "tile": "supervisor_team_project_nested",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "supervisorName": { "type": "string", "title": "Supervisor Name" },
+      "supervisorId": { "type": "number", "title": "Supervisor ID" },
+      "phoneNumber": { "type": "string", "title": "Phone Number" },
+
+      "teamDetails": {
         "type": "object",
+        "title": "Team Details",
+        "component_name": "TwoPanelComponent",
         "properties": {
-            "farmerName": {"type": "string", "title": "Farmer Name"},
-            "fatherName": {"type": "string", "title": "Father Name"},
-            "farmerId": {"type": "number", "title": "Farmer ID"},
-            "dob": {"type": "string", "format": "date", "title": "Date of Birth"},
-            "gender": {"type": "string", "title": "Gender"},
-            "phone": {"type": "string", "title": "Phone Number"},
-            "altPhone": {"type": "string", "title": "Alternate Phone"},
-            "village": {"type": "string", "title": "Village"},
-            "aadhaar": {"type": "string", "format": "aadhaar", "title": "Aadhaar Number"}
-        }
-    },
-    "uiSchema": {
-        "type": "Categorization",
-        "elements": [
-            {
-                "type": "Category",
-                "label": "Panel 1",
-                "elements": [
-                    {"type": "Control", "scope": "#/properties/farmerName", "options": {"placeholder": "Enter full name"}},
-                    {"type": "Control", "scope": "#/properties/fatherName", "options": {"placeholder": "Father's name"}},
-                    {"type": "Control", "scope": "#/properties/farmerId", "options": {"widget": "updown"}}
-                ]
-            },
-            {
-                "type": "Category",
-                "label": "Panel 2",
-                "elements": [
-                    {"type": "Control", "scope": "#/properties/dob", "options": {"widget": "date"}},
-                    {"type": "Control", "scope": "#/properties/gender"},
-                    {"type": "Control", "scope": "#/properties/phone", "options": {"placeholder": "Mobile number"}}
-                ]
-            },
-            {
-                "type": "Category",
-                "label": "Panel 3",
-                "elements": [
-                    {"type": "Control", "scope": "#/properties/altPhone"},
-                    {"type": "Control", "scope": "#/properties/village"},
-                    {"type": "Control", "scope": "#/properties/aadhaar"}
-                ]
+          "teamSize": { "type": "number", "title": "Team Size" },
+          "teamLead": { "type": "string", "title": "Team Lead Name" },
+          "teamShift": { "type": "string", "title": "Team Shift" },
+          "teamArea": { "type": "string", "title": "Team Area Assigned" },
+          "teamCode": { "type": "string", "title": "Team Code" },
+          "teamStatus": { "type": "string", "title": "Team Status" },
+
+          "projectInfo": {
+            "type": "object",
+            "title": "Project Information",
+            "component_name": "ThreePanelComponent",
+            "properties": {
+              "projectName": { "type": "string", "title": "Project Name" },
+              "projectLocation": { "type": "string", "title": "Project Location" },
+              "budget": { "type": "number", "title": "Project Budget" },
+              "startDate": { "type": "string", "title": "Start Date" },
+              "endDate": { "type": "string", "title": "End Date" },
+              "projectManager": { "type": "string", "title": "Project Manager" },
+              "projectStatus": { "type": "string", "title": "Project Status" },
+              "resourcesUsed": { "type": "string", "title": "Resources Used" },
+              "priorityLevel": { "type": "string", "title": "Priority Level" }
             }
-        ]
+          }
+        }
+      }
     }
+  },
+
+  "uiSchema": {
+    "type": "Categorization",
+    "elements": [
+      {
+        "type": "Category",
+        "label": "Supervisor Panel",
+        "elements": [
+          { "type": "Control", "scope": "#/properties/supervisorName" },
+          { "type": "Control", "scope": "#/properties/supervisorId" },
+          { "type": "Control", "scope": "#/properties/phoneNumber" },
+          { "type": "Control", "scope": "#/properties/teamDetails" },
+          { "type": "Control", "scope": "#/properties/projectInfo" },
+          
+        ]
+      }
+    ]
+  }
 }
+]

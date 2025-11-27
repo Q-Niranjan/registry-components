@@ -9,3 +9,6 @@ ajv.addFormat("aadhaar", {
 	return /^[0-9]{12}$/.test(value);
   }
 });
+
+
+

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import PanelTile from "./components/PanelTile";
+import JsonSchemaComponentRender from "./components/JsonSchemaComponentRender";
 import { PanelData } from "./types/Panel";
 import { ApiResponse } from "./types/ApiResponse";
 
@@ -15,10 +15,10 @@ export default function Home() {
       const json: ApiResponse = await res.json();
 
       const panelArray: PanelData[] = Object.values(json).map((section: any) => ({
-        schema: section.schema,       
-        uiSchema: section.uiSchema, 
-        panelType: section.panelType,
-        panelTitle: section.panelTitle,
+        component_name: section.component_name,
+        tile: section.tile,
+        schema: section.schema,
+        uiSchema: section.uiSchema,
       }));
 
       setPanels(panelArray);
@@ -29,11 +29,5 @@ export default function Home() {
 
   if (panels.length === 0) return <p className="p-10">Loading...</p>;
 
-  return (
-    <div className="p-10 space-y-10">
-      {panels.map((panel, i) => (
-        <PanelTile key={i} data={panel} />
-      ))}
-    </div>
-  );
+  return <JsonSchemaComponentRender panels={panels} />;
 }
