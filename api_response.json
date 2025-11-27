@@ -1,0 +1,50 @@
+{
+    "panelTitle": "Farmer Details",
+    "panelType": "3-panel",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "farmerName": {"type": "string", "title": "Farmer Name"},
+            "fatherName": {"type": "string", "title": "Father Name"},
+            "farmerId": {"type": "number", "title": "Farmer ID"},
+            "dob": {"type": "string", "format": "date", "title": "Date of Birth"},
+            "gender": {"type": "string", "title": "Gender"},
+            "phone": {"type": "string", "title": "Phone Number"},
+            "altPhone": {"type": "string", "title": "Alternate Phone"},
+            "village": {"type": "string", "title": "Village"},
+            "aadhaar": {"type": "string", "format": "aadhaar", "title": "Aadhaar Number"}
+        }
+    },
+    "uiSchema": {
+        "type": "Categorization",
+        "elements": [
+            {
+                "type": "Category",
+                "label": "Panel 1",
+                "elements": [
+                    {"type": "Control", "scope": "#/properties/farmerName", "options": {"placeholder": "Enter full name"}},
+                    {"type": "Control", "scope": "#/properties/fatherName", "options": {"placeholder": "Father's name"}},
+                    {"type": "Control", "scope": "#/properties/farmerId", "options": {"widget": "updown"}}
+                ]
+            },
+            {
+                "type": "Category",
+                "label": "Panel 2",
+                "elements": [
+                    {"type": "Control", "scope": "#/properties/dob", "options": {"widget": "date"}},
+                    {"type": "Control", "scope": "#/properties/gender"},
+                    {"type": "Control", "scope": "#/properties/phone", "options": {"placeholder": "Mobile number"}}
+                ]
+            },
+            {
+                "type": "Category",
+                "label": "Panel 3",
+                "elements": [
+                    {"type": "Control", "scope": "#/properties/altPhone"},
+                    {"type": "Control", "scope": "#/properties/village"},
+                    {"type": "Control", "scope": "#/properties/aadhaar"}
+                ]
+            }
+        ]
+    }
+}
