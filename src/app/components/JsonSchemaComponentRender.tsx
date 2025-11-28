@@ -12,8 +12,12 @@ import {
   NestedComponentProperty,
   ComponentData
 } from "../types/Component";
+import DropDown from "./libComponents/DropDown";
+import { LibComponentRegistry } from "../types/LibComponent";
 
-
+const libComponentRegistry: LibComponentRegistry = {
+  DropDown
+} as const;
 export interface JsonSchemaComponentRenderProps<
   TComponentName extends ComponentName = ComponentName
 > {
@@ -190,6 +194,7 @@ export default function JsonSchemaComponentRender<
         title: item.title,
         schema: item.schema,
         uiSchema: item.uiSchema,
+        libComponentRegistry:libComponentRegistry,
       };
 
       return (

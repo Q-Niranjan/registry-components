@@ -7,18 +7,13 @@ import { ComponentData } from "./types/Component";
 import { ApiResponse, ComponentResponse } from "./types/ApiResponse";
 import { ComponentRegistry } from "./types/Component";
 import OnePanelComponent from "./components/OnePanelComponent";
-import TwoPanelComponent from "./components/TwoPanelComponent";
-import ThreePanelComponent from "./components/ThreePanelComponent";
-import XYZComponent from "./components/XYZComponent";
+
 
 /**
  * Component registry mapping component names to React components
  */
 const componentRegistry: ComponentRegistry = {
-  OnePanelComponent,
-  TwoPanelComponent,
-  ThreePanelComponent,
-  XYZComponent,
+  OnePanelComponent
 } as const;
 
 export default function Home(): ReactElement {

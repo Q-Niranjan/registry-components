@@ -1,11 +1,13 @@
 import { JsonSchema, UISchemaElement } from "@jsonforms/core";
 import { ComponentType } from "react";
+import { LibBaseComponentProps, LibComponentRegistry } from "./LibComponent";
 
 // Base Props for All Components
 export interface BaseComponentProps {
   title: string;
   schema: JsonSchema;
   uiSchema?: UISchemaElement;
+  libComponentRegistry:LibComponentRegistry
 }
 
 // Global Types
