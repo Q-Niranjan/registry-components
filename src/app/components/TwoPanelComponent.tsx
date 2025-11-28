@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { JsonForms } from "@jsonforms/react";
-import { JsonSchema, UISchemaElement } from "@jsonforms/core";
+import type { UISchemaElement } from "@jsonforms/core";
 
 import {
   materialCells,
@@ -10,16 +10,11 @@ import {
 } from "@jsonforms/material-renderers";
 
 import { ajv } from "@/lib/jsonforms-ajv";
+import type { BaseComponentProps } from "../types/Component";
 
-interface Props {
-  title: string;
-  schema: JsonSchema;
-  uiSchema?: UISchemaElement;
-}
-
-const TwoPanelComponent: React.FC<Props> = ({ title, schema, uiSchema }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState<any>({});
+const TwoPanelComponent: React.FC<BaseComponentProps> = ({ title, schema, uiSchema }) => {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [formData, setFormData] = useState<Record<string, unknown>>({});
 
   // extract fields - first 6 fields for 2-panel
   const fieldKeys = Object.keys(schema.properties || {});

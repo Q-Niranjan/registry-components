@@ -1,38 +1,102 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
+import type { ReactElement } from "react";
 import JsonSchemaComponentRender from "./components/JsonSchemaComponentRender";
-import { PanelData } from "./types/Panel";
-import { ApiResponse } from "./types/ApiResponse";
+import { ComponentData } from "./types/Component";
+import { ApiResponse, ComponentResponse } from "./types/ApiResponse";
+import { ComponentRegistry } from "./types/Component";
+import OnePanelComponent from "./components/OnePanelComponent";
+import TwoPanelComponent from "./components/TwoPanelComponent";
+import ThreePanelComponent from "./components/ThreePanelComponent";
+import XYZComponent from "./components/XYZComponent";
 
-export default function Home() {
-  const [panels, setPanels] = useState<PanelData[]>([]);
+/**
+ * Component registry mapping component names to React components
+ */
+const componentRegistry: ComponentRegistry = {
+  OnePanelComponent,
+  TwoPanelComponent,
+  ThreePanelComponent,
+  XYZComponent,
+} as const;
+
+export default function Home(): ReactElement {
+  const [data, setData] = useState<ComponentData[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function fetchData() {
-      const res = await fetch("/api/data");
-      const json: ApiResponse = await res.json();
+    async function fetchData(): Promise<void> {
+      try {
+        setIsLoading(true);
+        setError(null);
 
-      const panelArray: PanelData[] = Object.values(json).map((section: any) => ({
-        component_name: section.component_name,
-        tile: section.tile,
-        schema: section.schema,
-        uiSchema: section.uiSchema,
-      }));
+        const response = await fetch("/api/data");
+        
+        if (!response.ok) {
+          throw new Error(`Failed to fetch data: ${response.statusText}`);
+        }
 
-      setPanels(panelArray);
+        const json: ApiResponse = await response.json();
+
+        // Data is a list of dictionaries (array)
+        const componentData: ComponentData[] = json.map(
+          (item: ComponentResponse): ComponentData => {
+            return {
+              component_name: item.component_name,
+              title: item.title,
+              originalSchema: item.schema,
+              schema: item.schema as ComponentData["schema"],
+              uiSchema: item.uischema ?? item.uiSchema,
+              layout: item.layout ?? "vertical",
+            };
+          }
+        );
+
+        setData(componentData);
+      } catch (err) {
+        const errorMessage =
+          err instanceof Error ? err.message : "Unknown error occurred";
+        setError(errorMessage);
+        console.error("Error fetching data:", err);
+      } finally {
+        setIsLoading(false);
+      }
     }
 
-    fetchData();
+    void fetchData();
   }, []);
 
-  if (panels.length === 0) return <p className="p-10">Loading...</p>;
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center p-10">
+        <p className="text-gray-600">Loading...</p>
+      </div>
+    );
+  }
 
-  return<div className="p-8">
+  if (error) {
+    return (
+      <div className="flex items-center justify-center p-10">
+        <p className="text-red-600">Error: {error}</p>
+      </div>
+    );
+  }
 
-    <JsonSchemaComponentRender panels={panels} />
+  if (data.length === 0) {
+    return (
+      <div className="flex items-center justify-center p-10">
+        <p className="text-gray-600">No data available</p>
+      </div>
+    );
+  }
 
-  </div>
-  
+  return (
+    <JsonSchemaComponentRender
+      data={data}
+      defaultLayout="vertical"
+      componentRegistry={componentRegistry}
+    />
+  );
 }

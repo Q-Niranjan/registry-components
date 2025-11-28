@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { JsonForms } from "@jsonforms/react";
-import { JsonSchema, UISchemaElement } from "@jsonforms/core";
+import type { JsonSchema, UISchemaElement } from "@jsonforms/core";
 
 import {
   materialCells,
@@ -11,16 +11,11 @@ import {
 
 import { ajv } from "@/lib/jsonforms-ajv";
 import AadhaarRenderer, { aadhaarTester } from "./AdharComponent";
+import type { BaseComponentProps } from "../types/Component";
 
-interface Props {
-  title: string;
-  schema: JsonSchema;
-  uiSchema?: UISchemaElement;
-}
-
-const OnePanelComponent: React.FC<Props> = ({ title, schema, uiSchema }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [formData, setFormData] = useState<any>({});
+const OnePanelComponent: React.FC<BaseComponentProps> = ({ title, schema, uiSchema }) => {
+  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [formData, setFormData] = useState<Record<string, unknown>>({});
 
   // extract first 3 properties
   const fieldKeys = Object.keys(schema.properties || {});
