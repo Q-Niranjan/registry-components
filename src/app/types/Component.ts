@@ -1,12 +1,11 @@
-import { JsonSchema, UISchemaElement } from "@jsonforms/core";
+import { JsonSchema,  } from "@jsonforms/core";
 import { ComponentType } from "react";
-import { LibBaseComponentProps, LibComponentRegistry } from "./LibComponent";
+import {LibComponentRegistry } from "./LibComponent";
 
 // Base Props for All Components
 export interface BaseComponentProps {
   title: string;
   schema: JsonSchema;
-  uiSchema?: UISchemaElement;
   libComponentRegistry:LibComponentRegistry
 }
 
@@ -18,9 +17,8 @@ export type ComponentName = string;
 export interface NestedComponentProperty {
   type: "object";
   title?: string;
-  component_name: ComponentName;
+  component: ComponentName;
   schema: JsonSchema | NestedComponentProperty;
-  uiSchema?: UISchemaElement;
   layout?: LayoutDirection;
   properties?: Record<string, JsonSchema | NestedComponentProperty>;
 }
@@ -32,9 +30,9 @@ export function isNestedComponentProperty(
   return (
     typeof property === "object" &&
     property !== null &&
-    "component_name" in property &&
+    "component" in property &&
     "schema" in property &&
-    typeof (property as NestedComponentProperty).component_name === "string" &&
+    typeof (property as NestedComponentProperty).component === "string" &&
     typeof (property as NestedComponentProperty).schema === "object" &&
     (property as NestedComponentProperty).schema !== null &&
     "type" in ((property as NestedComponentProperty).schema as object)
@@ -49,10 +47,9 @@ export type ComponentRegistry<T extends ComponentName = ComponentName> = Record<
 
 // Internal Representation for Render Queue
 export interface ComponentItem {
-  readonly component_name: ComponentName;
+  readonly component: ComponentName;
   readonly title: string;
   schema: JsonSchema;
-  readonly uiSchema?: UISchemaElement;
   readonly layout?: LayoutDirection;
   readonly originalSchema?: JsonSchema | NestedComponentProperty;
 
@@ -63,10 +60,9 @@ export interface ComponentItem {
 
 //Data Format Received from Backend (FastAPI)
 export interface ComponentData {
-  readonly component_name: ComponentName;
+  readonly component: ComponentName;
   readonly title: string;
   schema: JsonSchema;
-  readonly uiSchema?: UISchemaElement;
   readonly layout?: LayoutDirection;
   readonly originalSchema?: JsonSchema | unknown;
 }

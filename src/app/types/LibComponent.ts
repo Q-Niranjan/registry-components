@@ -1,5 +1,5 @@
 
-import { JsonSchema, UISchemaElement } from "@jsonforms/core";
+import { JsonSchema } from "@jsonforms/core";
 import { ComponentType } from "react";
 
 export interface LibBaseComponentProps {

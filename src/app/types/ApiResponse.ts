@@ -1,15 +1,13 @@
-import { JsonSchema, UISchemaElement } from "@jsonforms/core";
+import { JsonSchema } from "@jsonforms/core";
 import { NestedComponentProperty } from "./Component";
 
 /**
  * Component data structure from API response
  */
 export interface ComponentResponse {
-  component_name: string;
+  component: string;
   title: string;
   schema: JsonSchema | NestedComponentProperty;
-  uischema?: UISchemaElement;
-  uiSchema?: UISchemaElement;
   layout?: "vertical" | "horizontal";
 }
 

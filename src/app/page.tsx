@@ -39,11 +39,10 @@ export default function Home(): ReactElement {
         const componentData: ComponentData[] = json.map(
           (item: ComponentResponse): ComponentData => {
             return {
-              component_name: item.component_name,
+              component: item.component,
               title: item.title,
               originalSchema: item.schema,
               schema: item.schema as ComponentData["schema"],
-              uiSchema: item.uischema ?? item.uiSchema,
               layout: item.layout ?? "vertical",
             };
           }

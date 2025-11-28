@@ -7,7 +7,6 @@ import { libComponentRender } from "./libComponents/libComponentRender";
 const OnePanelComponent: React.FC<BaseComponentProps> = ({
   title,
   schema,
-  uiSchema,
   libComponentRegistry
 }) => {  
   return (

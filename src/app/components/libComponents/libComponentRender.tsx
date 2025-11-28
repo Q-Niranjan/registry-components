@@ -11,9 +11,9 @@ export function libComponentRender({
   return Object.entries(schema.properties || {}).map(([key, fieldSchema]: any) => {
 
     // Only fields with a component_name should be rendered
-    if (!fieldSchema.lib_component_name) return null;
+    if (!fieldSchema.component_level2) return null;
 
-    const componentName = fieldSchema.lib_component_name;
+    const componentName = fieldSchema.component_level2;
 
     // Get component from registry
     const LibComponent = libComponentRegistry[componentName];
@@ -26,7 +26,7 @@ export function libComponentRender({
       );
     }
 
-    const { lib_component_name, ...cleanedFieldSchema } = fieldSchema;
+    const { component_level2, ...cleanedFieldSchema } = fieldSchema;
 
     const extractedSchema: JsonSchema = {
       type: "object",
