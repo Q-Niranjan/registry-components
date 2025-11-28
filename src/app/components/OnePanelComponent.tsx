@@ -10,6 +10,7 @@ import {
 } from "@jsonforms/material-renderers";
 
 import { ajv } from "@/lib/jsonforms-ajv";
+import AadhaarRenderer, { aadhaarTester } from "./AdharComponent";
 
 interface Props {
   title: string;
@@ -54,7 +55,10 @@ const OnePanelComponent: React.FC<Props> = ({ title, schema, uiSchema }) => {
               uischema={finalUiSchema}
               data={formData}
               cells={materialCells}
-              renderers={materialRenderers}
+              renderers={[
+                ...materialRenderers,
+                { tester: aadhaarTester, renderer: AadhaarRenderer },
+              ]}
               ajv={ajv}
               onChange={({ data }) => setFormData(data)}
             />

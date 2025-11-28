@@ -29,5 +29,10 @@ export default function Home() {
 
   if (panels.length === 0) return <p className="p-10">Loading...</p>;
 
-  return <JsonSchemaComponentRender panels={panels} />;
+  return<div className="p-8">
+
+    <JsonSchemaComponentRender panels={panels} />
+
+  </div>
+  
 }
