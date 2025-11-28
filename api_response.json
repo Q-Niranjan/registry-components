@@ -1,153 +1,21 @@
 [
   {
-    "component_name": "OnePanelComponent",
-    "tile": "Labour Details",
+    "component": "OnePanelComponent",
+    "title": "Labour Details",
     "schema": {
       "type": "object",
       "properties": {
-        "labourName": { "type": "string", "title": "Labour Name" },
-        "labourId": { "type": "number", "title": "Labour ID" },
-        "aadhaar": { "type": "string","format":"aadhaar", "title": "Aadhaar Number" },
-
-        "workDetails": {
-          "type": "object",
-          "title": "Work Details",
-          "component_name": "TwoPanelComponent",
-          "schema": {
-            "type": "object",
-            "properties": {
-              "workType": { "type": "string", "title": "Type of Work" },
-              "dailyWage": { "type": "number", "title": "Daily Wage" },
-
-              "shift": { 
-                "type": "string",
-                "title": "Shift",
-                "enum": ["Morning", "Evening", "Night"]
-              },
-
-              "workLocation": { "type": "string", "title": "Work Location" },
-              "experience": { "type": "number", "title": "Experience (Years)" },
-
-              "labourStatus": { 
-                "type": "string",
-                "title": "Labour Status",
-                "enum": ["Active", "Inactive", "On Break", "Training"]
-              },
-
-              "contractInfo": {
-                "type": "object",
-                "title": "Contract Information",
-                "component_name": "ThreePanelComponent",
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "contractId": { "type": "string", "title": "Contract ID" },
-                    "contractorName": { "type": "string", "title": "Contractor Name" },
-                    "contractAmount": { "type": "number", "title": "Contract Amount" },
-
-                    "startDate": {
-                      "type": "string",
-                      "format": "date",
-                      "title": "Start Date"
-                    },
-
-                    "endDate": {
-                      "type": "string",
-                      "format": "date",
-                      "title": "End Date"
-                    },
-
-                    "paymentMode": { 
-                      "type": "string",
-                      "title": "Payment Mode",
-                      "enum": ["Cash", "Bank Transfer", "UPI"]
-                    },
-
-                    "contractStatus": { 
-                      "type": "string",
-                      "title": "Contract Status",
-                      "enum": ["Active", "Completed", "Pending", "Terminated"]
-                    },
-
-                    "remarks": { "type": "string", "title": "Remarks" }
-                  }
-                },
-
-                "uiSchema": {
-                  "type": "Categorization",
-                  "elements": [
-                    {
-                      "type": "Category",
-                      "label": "Contract Overview",
-                      "elements": [
-                        { "type": "Control", "scope": "#/properties/contractId", "options": { "widget": "text" } },
-                        { "type": "Control", "scope": "#/properties/contractorName", "options": { "widget": "text" } },
-                        { "type": "Control", "scope": "#/properties/contractAmount", "options": { "widget": "number" } }
-                      ]
-                    },
-                    {
-                      "type": "Category",
-                      "label": "Contract Timeline",
-                      "elements": [
-                        { "type": "Control", "scope": "#/properties/startDate", "options": { "widget": "date" } },
-                        { "type": "Control", "scope": "#/properties/endDate", "options": { "widget": "date" } },
-                        { "type": "Control", "scope": "#/properties/paymentMode", "options": { "widget": "select" } }
-                      ]
-                    },
-                    {
-                      "type": "Category",
-                      "label": "Additional Details",
-                      "elements": [
-                        { "type": "Control", "scope": "#/properties/contractStatus", "options": { "widget": "radio" } },
-                        { "type": "Control", "scope": "#/properties/remarks", "options": { "widget": "textarea" } }
-                      ]
-                    }
-                  ]
-                }
-              }
-            }
-          },
-
-          "uiSchema": {
-            "type": "Categorization",
-            "elements": [
-              {
-                "type": "Category",
-                "label": "Work Basic Information",
-                "elements": [
-                  { "type": "Control", "scope": "#/properties/workType", "options": { "widget": "text" } },
-                  { "type": "Control", "scope": "#/properties/dailyWage", "options": { "widget": "number" } },
-                  { "type": "Control", "scope": "#/properties/shift", "options": { "widget": "select" } }
-                ]
-              },
-              {
-                "type": "Category",
-                "label": "Additional Work Details",
-                "elements": [
-                  { "type": "Control", "scope": "#/properties/workLocation", "options": { "widget": "text" } },
-                  { "type": "Control", "scope": "#/properties/experience", "options": { "widget": "number" } },
-                  { "type": "Control", "scope": "#/properties/labourStatus", "options": { "widget": "radio" } }
-                ]
-              }
-            ]
-          }
+        "shift": { 
+          "component_level2": "DropDown",
+          "type": "string",
+          "enum": ["Morning", "Evening", "Night"]
+        },
+        "shiftType": { 
+          "component_level2": "Radio",
+          "type": "string",
+          "enum": ["Full Day", "Half Day", "Overtime"]
         }
       }
-    },
-
-    "uiSchema": {
-      "type": "Categorization",
-      "elements": [
-        {
-          "type": "Category",
-          "label": "Labour Basic Details",
-          "elements": [
-            { "type": "Control", "scope": "#/properties/labourName", "options": { "widget": "text" } },
-            { "type": "Control", "scope": "#/properties/labourId", "options": { "widget": "number" } },
-            { "type": "Control", "scope": "#/properties/aadhaar", "options": { "widget": "text" } }
-          ]
-        }
-      ]
     }
   }
 ]
