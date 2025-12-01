@@ -29,6 +29,7 @@ export interface JsonSchemaComponentRenderProps<
   readonly componentRegistry: ComponentRegistry<TComponentName>;
   readonly className?: string;
   readonly itemClassName?: string;
+  readonly onEdit?: (item: ComponentItem) => void;
 }
 
 function hasProperties(
@@ -53,7 +54,7 @@ function cleanSchemaForJsonForms(
   const cleaned: Record<string, unknown> = {};
 
   for (const [key, value] of Object.entries(schema)) {
-    if (key !== "component" ) {
+    if (key !== "component") {
       cleaned[key] = value;
     }
   }
@@ -86,8 +87,9 @@ export default function JsonSchemaComponentRender<
   componentRegistry,
   className = "p-8",
   itemClassName = "p-4",
+  onEdit,
 }: JsonSchemaComponentRenderProps<TComponentName>): ReactElement {
-  
+
   const finalRenderList = useMemo(() => {
     const renderList: ComponentItem[] = [];
     const visited = new Set<string>();
@@ -96,7 +98,7 @@ export default function JsonSchemaComponentRender<
       const rootUid = `root-${item.title}-${Date.now()}-${Math.random()}`;
 
       const rootComponent: ComponentItem = {
-        component: item.component,          
+        component: item.component,
         title: item.title,
         schema: item.schema,
         layout: item.layout ?? defaultLayout,
@@ -116,7 +118,7 @@ export default function JsonSchemaComponentRender<
 
         const cleanedSchema = cleanSchemaForJsonForms(
           (current.originalSchema as JsonSchema | NestedComponentProperty) ||
-            current.schema
+          current.schema
         );
         current.schema = cleanedSchema;
 
@@ -136,7 +138,7 @@ export default function JsonSchemaComponentRender<
               );
 
               const nestedComponent: ComponentItem = {
-                component: property.component,   // ⬅ changed here
+                component: property.component,
                 title: property.title ?? (nestedComponentSchema as JsonSchema)?.title ?? key,
                 schema: cleanedNestedSchema,
                 layout: property.layout ?? defaultLayout,
@@ -160,9 +162,9 @@ export default function JsonSchemaComponentRender<
 
   const renderComponents = (items: readonly ComponentItem[]): ReactElement[] => {
     return items.map((item): ReactElement => {
-      const componentName = item.component as TComponentName; // ⬅ changed
+      const componentName = item.component as TComponentName;
       const Component = componentRegistry[componentName];
-      
+
       if (!Component) {
         console.warn(`Component ${item.component} not found in registry`);
         return (
@@ -176,6 +178,14 @@ export default function JsonSchemaComponentRender<
         title: item.title,
         schema: item.schema,
         libComponentRegistry: libComponentRegistry,
+        onEdit: () => {
+          if (onEdit) {
+            onEdit(item);
+          } else {
+            console.log("Edit clicked for", item.title);
+            alert(`Edit clicked for ${item.title}`);
+          }
+        }
       };
 
       return (

@@ -5,16 +5,56 @@
     "schema": {
       "type": "object",
       "properties": {
-        "shift": { 
+        "attr1": { 
           "component_level2": "DropDown",
           "type": "string",
-          "enum": ["Morning", "Evening", "Night"]
+          "enum": ["Option 1", "Option 2", "Option 3"]
         },
-        "shiftType": { 
+        "attr2": { 
           "component_level2": "Radio",
           "type": "string",
-          "enum": ["Full Day", "Half Day", "Overtime"]
+          "enum": ["Yes", "No"]
+        },
+        "attr3": { 
+          "component_level2": "DropDown",
+          "type": "string",
+          "enum": ["A", "B", "C"]
         }
+      }
+    }
+  },
+
+  {
+    "component": "TwoPanelComponent",
+    "title": "Labour Details",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "attr1": { "component_level2": "DropDown", "type": "string", "enum": ["Option 1", "Option 2"] },
+        "attr2": { "component_level2": "Radio", "type": "string", "enum": ["True", "False"] },
+        "attr3": { "component_level2": "DropDown", "type": "string", "enum": ["A", "B"] },
+        "attr4": { "component_level2": "Radio", "type": "string", "enum": ["Red", "Blue"] },
+        "attr5": { "component_level2": "DropDown", "type": "string", "enum": ["Low", "Medium", "High"] },
+        "attr6": { "component_level2": "Radio", "type": "string", "enum": ["On", "Off"] }
+      }
+    }
+  },
+
+  {
+    "component": "ThreePanelComponent",
+    "title": "Labour Details",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "attr1": { "component_level2": "DropDown", "type": "string", "enum": ["A", "B", "C"] },
+        "attr2": { "component_level2": "Radio", "type": "string", "enum": ["Yes", "No"] },
+        "attr3": { "component_level2": "DropDown", "type": "string", "enum": ["X", "Y"] },
+        "attr4": { "component_level2": "Radio", "type": "string", "enum": ["Male", "Female"] },
+        "attr5": { "component_level2": "DropDown", "type": "string", "enum": ["Small", "Medium", "Large"] },
+        "attr6": { "component_level2": "Radio", "type": "string", "enum": ["Low", "High"] },
+        "attr7": { "component_level2": "DropDown", "type": "string", "enum": ["Morning", "Evening", "Night"] },
+        "attr8": { "component_level2": "Radio", "type": "string", "enum": ["Full", "Half"] },
+        "attr9": { "component_level2": "DropDown", "type": "string", "enum": ["One", "Two", "Three"] }
       }
     }
   }

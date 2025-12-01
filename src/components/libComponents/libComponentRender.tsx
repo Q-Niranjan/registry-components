@@ -1,5 +1,5 @@
 import type { JsonSchema } from "@jsonforms/core";
-import type { LibComponentRegistry } from "@/app/types/LibComponent";
+import type { LibComponentRegistry } from "@/types/LibComponent";
 
 export function libComponentRender({
   schema,

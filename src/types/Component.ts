@@ -1,12 +1,13 @@
-import { JsonSchema,  } from "@jsonforms/core";
+import { JsonSchema, } from "@jsonforms/core";
 import { ComponentType } from "react";
-import {LibComponentRegistry } from "./LibComponent";
+import { LibComponentRegistry } from "./LibComponent";
 
 // Base Props for All Components
 export interface BaseComponentProps {
   title: string;
   schema: JsonSchema;
-  libComponentRegistry:LibComponentRegistry
+  libComponentRegistry: LibComponentRegistry;
+  onEdit?: () => void;
 }
 
 // Global Types
@@ -53,8 +54,8 @@ export interface ComponentItem {
   readonly layout?: LayoutDirection;
   readonly originalSchema?: JsonSchema | NestedComponentProperty;
 
-  readonly _uid: string;        
-  readonly _parentUid?: string; 
+  readonly _uid: string;
+  readonly _parentUid?: string;
   readonly _level: number;      // Nesting depth
 }
 
