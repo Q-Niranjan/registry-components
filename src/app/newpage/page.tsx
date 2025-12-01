@@ -38,11 +38,43 @@ export function Radio1({ name, options = [] }: any) {
     );
 }
 
+export function SectionComponent({ title, children }: any) {
+    return (
+        <div className="pl-4 mb-4">
+            <h3 className="text-lg font-semibold mb-2">{title}</h3>
+            {children}
+        </div>
+    );
+}
+
+export function SubSectionComponent({ title, children }: any) {
+    return (
+        <div className="ml-4 pl-4 mb-3">
+            <h4 className="text-md font-semibold mb-2">{title}</h4>
+            {children}
+        </div>
+    );
+}
+
+
+
+export function TextBox({ name }: any) {
+    return (
+        <div className="mb-4">
+            <label className="block font-medium mb-1">{name}</label>
+            <input type="text" name={name} className="border p-2 w-full rounded" />
+        </div>
+    );
+}
+
 
 export const componentRegistry: Record<string, React.FC<any>> = {
     OnePanelComponent1,
     DropDown1,
-    Radio1
+    Radio1,
+    SectionComponent,
+    SubSectionComponent,
+    TextBox
 };
 
 export function Renderer({ config }: { config: any }) {
@@ -93,29 +125,84 @@ export function Renderer({ config }: { config: any }) {
 }
 
 
-const json = [
+// const json = [
+//     {
+//         component: "OnePanelComponent1",
+//         title: "Labour Details",
+//         schema: {
+//             type: "object",
+//             properties: {
+//                 shift: {
+//                     component: "DropDown1",
+//                     type: "string",
+//                     enum: ["Morning", "Evening", "Night"]
+//                 },
+//                 shiftType: {
+//                     component: "Radio1",
+//                     type: "string",
+//                     enum: ["Full Day", "Half Day", "Overtime"]
+//                 }
+//             }
+//         }
+//     }
+// ];
+
+export const json = [
     {
         component: "OnePanelComponent1",
-        title: "Labour Details",
+        title: "Labour Information",
         schema: {
             type: "object",
             properties: {
+                employeeName: {
+                    component: "TextBox"
+                },
                 shift: {
                     component: "DropDown1",
-                    type: "string",
                     enum: ["Morning", "Evening", "Night"]
                 },
-                shiftType: {
-                    component: "Radio1",
-                    type: "string",
-                    enum: ["Full Day", "Half Day", "Overtime"]
+
+                workDetails: {
+                    component: "SectionComponent",
+                    title: "Work Details",
+                    schema: {
+                        type: "object",
+                        properties: {
+                            jobType: {
+                                component: "Radio1",
+                                enum: ["Skilled", "Unskilled", "Supervisor"]
+                            },
+
+                            paymentInfo: {
+                                component: "SubSectionComponent",
+                                title: "Payment Information",
+                                schema: {
+                                    type: "object",
+                                    properties: {
+                                        wagesPerDay: {
+                                            component: "TextBox"
+                                        },
+                                        paymentMode: {
+                                            component: "DropDown1",
+                                            enum: ["Cash", "UPI", "Bank Transfer"]
+                                        },
+                                        verified: {
+                                            component: "Radio1",
+                                            enum: ["Yes", "No"]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 ];
 
-export default function ahah() {
+
+export default function page() {
     return (
         <div className="p-6">
             <Renderer config={json} />
