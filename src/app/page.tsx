@@ -27,13 +27,34 @@ export default function Home(): ReactElement {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch("/api/data");
-        
-        if (!response.ok) {
-          throw new Error(`Failed to fetch data: ${response.statusText}`);
-        }
+        // const response = await fetch("/api/data");
 
-        const json: ApiResponse = await response.json();
+        // if (!response.ok) {
+        //   throw new Error(`Failed to fetch data: ${response.statusText}`);
+        // }
+        const json = [
+          {
+            "component": "OnePanelComponent",
+            "title": "Labour Details",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "shift": {
+                  "component_level2": "DropDown",
+                  "type": "string",
+                  "enum": ["Morning", "Evening", "Night"]
+                },
+                "shiftType": {
+                  "component_level2": "Radio",
+                  "type": "string",
+                  "enum": ["Full Day", "Half Day", "Overtime"]
+                }
+              }
+            }
+          }
+        ]
+
+        // const json: ApiResponse = await response.json();
 
         // Data is a list of dictionaries (array)
         const componentData: ComponentData[] = json.map(
